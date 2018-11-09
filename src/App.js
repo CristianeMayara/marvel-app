@@ -1,26 +1,30 @@
-import React, { Component } from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { Component } from "react";
+import { Route, Switch, Redirect } from "react-router-dom";
+import CharacterEdit from "./views/CharacterEdit";
+import CharacterList from "./views/CharacterList";
+import CharacterDetails from "./views/CharacterDetails";
 
 class App extends Component {
   render() {
     return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Edit <code>src/App.js</code> and save to reload.
-          </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-        </header>
-      </div>
+      <Switch>
+        <Route
+          path="/characters"
+          name="CharacterList"
+          component={CharacterList}
+        />
+        <Route
+          path="/character/:id"
+          name="CharacterEdit"
+          component={CharacterEdit}
+        />
+        <Route
+          path="/details/:id"
+          name="CharacterDetails"
+          component={CharacterDetails}
+        />
+        <Redirect from="/" to="/characters" />
+      </Switch>
     );
   }
 }
