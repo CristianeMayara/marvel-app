@@ -24,3 +24,9 @@ export const fetchSeriesApi = async id => {
 
   return await axios.get(url);
 };
+
+export const searchCharactersApi = async name => {
+  const url = `${API_URL}${CHARACTERS_PATH}?nameStartsWith=${name}&apikey=${PUBLIC_KEY}&hash=${MD5_HASH}&ts=1&limit=100`;
+
+  return await axios.get(url);
+};

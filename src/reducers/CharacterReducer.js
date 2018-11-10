@@ -10,7 +10,10 @@ import {
   EDIT_CHARACTER_ERROR,
   FETCH_SERIES,
   FETCH_SERIES_SUCCESS,
-  FETCH_SERIES_ERROR
+  FETCH_SERIES_ERROR,
+  SEARCH_CHARACTERS,
+  SEARCH_CHARACTERS_SUCCESS,
+  SEARCH_CHARACTERS_ERROR
 } from "../actions/actionTypes";
 
 const INITIAL_STATE = {
@@ -115,6 +118,36 @@ export default function(state = INITIAL_STATE, action) {
           error: true,
           loading: false,
           series: []
+        }
+      };
+
+    case SEARCH_CHARACTERS:
+      return {
+        ...state,
+        characterList: {
+          error: false,
+          loading: true,
+          characters: []
+        }
+      };
+
+    case SEARCH_CHARACTERS_SUCCESS:
+      return {
+        ...state,
+        characterList: {
+          error: false,
+          loading: false,
+          characters: action.payload
+        }
+      };
+
+    case SEARCH_CHARACTERS_ERROR:
+      return {
+        ...state,
+        characterList: {
+          error: true,
+          loading: false,
+          characters: []
         }
       };
 

@@ -7,9 +7,16 @@ import {
   FETCH_CHARACTER_SUCCESS,
   FETCH_SERIES,
   FETCH_SERIES_ERROR,
-  FETCH_SERIES_SUCCESS
+  FETCH_SERIES_SUCCESS,
+  SEARCH_CHARACTERS,
+  SEARCH_CHARACTERS_ERROR,
+  SEARCH_CHARACTERS_SUCCESS
 } from "../actions/actionTypes";
-import { fetchCharacterApi, fetchCharactersApi } from "../api/CharactersApi";
+import {
+  fetchCharacterApi,
+  fetchCharactersApi,
+  searchCharactersApi
+} from "../api/CharactersApi";
 
 export function fetchCharacters() {
   return async dispatch => {
@@ -58,6 +65,23 @@ export function fetchSeries(id) {
       });
     } catch (err) {
       dispatch({ type: FETCH_SERIES_ERROR });
+    }
+  };
+}
+
+export function searchCharacters(name) {
+  return async dispatch => {
+    dispatch({ type: SEARCH_CHARACTERS });
+
+    try {
+      let res = await searchCharactersApi(name);
+
+      dispatch({
+        type: SEARCH_CHARACTERS_SUCCESS,
+        payload: res.data.data.results
+      });
+    } catch (err) {
+      dispatch({ type: SEARCH_CHARACTERS_ERROR });
     }
   };
 }
