@@ -6,12 +6,12 @@ import { fetchCharacters, searchCharacters } from "../actions/CharacterAction";
 class CharacterList extends Component {
   constructor(props) {
     super(props);
+
+    this.handleChangeInput = this.handleChangeInput.bind(this);
   }
 
   componentDidMount() {
     this.props.fetchCharacters();
-
-    this.handleChangeInput = this.handleChangeInput.bind(this);
   }
 
   handleChangeInput(event) {
