@@ -18,6 +18,11 @@ const INITIAL_STATE = {
     error: false,
     loading: false,
     characters: []
+  },
+  editCharacter: {
+    error: false,
+    loading: false,
+    character: {}
   }
 };
 
@@ -50,6 +55,36 @@ export default function(state = INITIAL_STATE, action) {
           error: true,
           loading: false,
           characters: []
+        }
+      };
+
+    case FETCH_CHARACTER:
+      return {
+        ...state,
+        editCharacter: {
+          error: false,
+          loading: true,
+          character: {}
+        }
+      };
+
+    case FETCH_CHARACTER_SUCCESS:
+      return {
+        ...state,
+        editCharacter: {
+          error: false,
+          loading: false,
+          character: action.payload
+        }
+      };
+
+    case FETCH_CHARACTER_ERROR:
+      return {
+        ...state,
+        editCharacter: {
+          error: true,
+          loading: false,
+          characters: {}
         }
       };
 

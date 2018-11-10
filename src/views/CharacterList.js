@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
+import { Link } from "react-router-dom";
 import { fetchCharacters } from "../actions/CharacterAction";
 
 class CharacterList extends Component {
@@ -18,7 +19,10 @@ class CharacterList extends Component {
         <h1>Character List</h1>
         {this.props.characterList.characters &&
           this.props.characterList.characters.map(character => (
-            <div key={character.id}>{character.name}</div>
+            <div key={character.id}>
+              {character.name}
+              <Link to={`/character/${character.id}`}>Edit</Link>
+            </div>
           ))}
       </div>
     );

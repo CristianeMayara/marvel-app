@@ -15,7 +15,7 @@ const mapStateToProps = state => {
 
 const mapDispathToProps = dispatch => {
   return {
-    fetchSerieList: characterId => dispatch(apiFetctSerieList(characterId))
+    // fetchSerieList: characterId => dispatch(apiFetctSerieList(characterId))
   };
 };
 
