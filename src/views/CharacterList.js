@@ -22,6 +22,7 @@ class CharacterList extends Component {
             <div key={character.id}>
               {character.name}
               <Link to={`/character/${character.id}`}>Edit</Link>
+              <Link to={`/details/${character.id}`}>See details</Link>
             </div>
           ))}
       </div>

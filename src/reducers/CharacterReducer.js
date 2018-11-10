@@ -88,6 +88,36 @@ export default function(state = INITIAL_STATE, action) {
         }
       };
 
+    case FETCH_SERIES:
+      return {
+        ...state,
+        serieList: {
+          error: false,
+          loading: true,
+          series: []
+        }
+      };
+
+    case FETCH_SERIES_SUCCESS:
+      return {
+        ...state,
+        serieList: {
+          error: false,
+          loading: false,
+          series: action.payload
+        }
+      };
+
+    case FETCH_SERIES_ERROR:
+      return {
+        ...state,
+        serieList: {
+          error: true,
+          loading: false,
+          series: []
+        }
+      };
+
     default:
       return state;
   }
