@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
+import { Row, Card, Input, Button, MediaBox } from "react-materialize";
 import { fetchCharacter } from "../actions/CharacterAction";
 
 class CharacterEdit extends Component {
@@ -29,10 +30,12 @@ class CharacterEdit extends Component {
 
   handleChangeInput(event) {
     const { target } = event;
-    const { value } = target;
+    const { name, value } = target;
 
-    if (value) this.props.searchCharacters(value);
-    else this.props.fetchCharacters();
+    let { character } = this.state;
+    character[name] = value;
+
+    return this.setState({ ...this.state, character });
   }
 
   handleFileInput(event) {
@@ -51,34 +54,42 @@ class CharacterEdit extends Component {
     let $imagePreview = null;
     if (imagePreviewUrl) {
       $imagePreview = (
-        <img style={{ maxWidth: 250, maxHeight: 250 }} src={imagePreviewUrl} />
+        <MediaBox
+          width="350"
+          src={imagePreviewUrl}
+          caption={this.state.character.name}
+        />
       );
     }
 
     return (
-      <div>
+      <Row style={{}}>
         <h1>Setting Character</h1>
-        <div>{$imagePreview}</div>
-        Name:
-        <input
+        {$imagePreview}
+        <Input
+          s={12}
           name="name"
           type="text"
-          placeholder="Enter character name"
+          label="Name"
           onChange={this.handleChangeInput}
-          value={this.state.character.name || ""}
+          placeholder={this.state.character.name || ""}
         />
-        <br />
-        <input
-          name="name"
+        <Input
+          s={12}
           type="file"
-          placeholder="Choose a new picture"
+          name="picture"
+          label="Change picture"
+          placeholder="Select a file"
           onChange={this.handleFileInput}
         />
-        <br />
-        <button type="button" onClick={() => {}}>
+        <Button
+          className="red right"
+          sytle={{ marginRight: 10 }}
+          onClick={() => {}}
+        >
           Save
-        </button>
-      </div>
+        </Button>
+      </Row>
     );
   }
 }
