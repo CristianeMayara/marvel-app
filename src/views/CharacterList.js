@@ -1,9 +1,27 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
+import { fetchCharacters } from "../actions/CharacterAction";
 
 class CharacterList extends Component {
+  constructor(props) {
+    super(props);
+  }
+
+  componentDidMount() {
+    this.props.fetchCharacters();
+  }
+
   render() {
-    return <div>List</div>;
+    console.log("characterList", this.props.characterList);
+    return (
+      <div>
+        <h1>Character List</h1>
+        {this.props.characterList.characters &&
+          this.props.characterList.characters.map(character => (
+            <div key={character.id}>{character.name}</div>
+          ))}
+      </div>
+    );
   }
 }
 
@@ -15,7 +33,7 @@ const mapStateToProps = state => {
 
 const mapDispathToProps = dispatch => {
   return {
-    fetchCharacterList: () => dispatch(fetchApiCharacterList())
+    fetchCharacters: () => dispatch(fetchCharacters())
   };
 };
 
