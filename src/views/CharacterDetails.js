@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { connect } from "react-redux";
 
 class CharacterDetails extends Component {
   render() {
@@ -6,4 +7,19 @@ class CharacterDetails extends Component {
   }
 }
 
-export default CharacterDetails;
+const mapStateToProps = state => {
+  return {
+    serieList: state.characterStore.serieList
+  };
+};
+
+const mapDispathToProps = dispatch => {
+  return {
+    fetchSerieList: characterId => dispatch(apiFetctSerieList(characterId))
+  };
+};
+
+export default connect(
+  mapStateToProps,
+  mapDispathToProps
+)(CharacterDetails);
