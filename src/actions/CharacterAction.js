@@ -14,6 +14,9 @@ import {
   FETCH_STORIES,
   FETCH_STORIES_ERROR,
   FETCH_STORIES_SUCCESS,
+  FETCH_COMICS,
+  FETCH_COMICS_ERROR,
+  FETCH_COMICS_SUCCESS,
   SEARCH_CHARACTERS,
   SEARCH_CHARACTERS_ERROR,
   SEARCH_CHARACTERS_SUCCESS,
@@ -22,6 +25,7 @@ import {
   EDIT_CHARACTER_SUCCESS
 } from "../actions/actionTypes";
 import {
+  fetchComicsApi,
   fetchEventsApi,
   fetchSeriesApi,
   fetchStoriesApi,
@@ -135,6 +139,23 @@ export function fetchStories(id) {
       });
     } catch (err) {
       dispatch({ type: FETCH_STORIES_ERROR });
+    }
+  };
+}
+
+export function fetchComics(id) {
+  return async dispatch => {
+    dispatch({ type: FETCH_COMICS });
+
+    try {
+      let res = await fetchComicsApi(id);
+
+      dispatch({
+        type: FETCH_COMICS_SUCCESS,
+        payload: res.data.data.results
+      });
+    } catch (err) {
+      dispatch({ type: FETCH_COMICS_ERROR });
     }
   };
 }

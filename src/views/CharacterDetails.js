@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { Tab, Tabs, Card, Collection, CollectionItem } from "react-materialize";
 import {
+  fetchComics,
   fetchEvents,
   fetchSeries,
   fetchStories,
@@ -19,6 +20,7 @@ class CharacterDetails extends Component {
     this.props.fetchSeries(this.props.match.params.id);
     this.props.fetchEvents(this.props.match.params.id);
     this.props.fetchStories(this.props.match.params.id);
+    this.props.fetchComics(this.props.match.params.id);
   }
 
   renderItem(item, index) {
@@ -56,32 +58,70 @@ class CharacterDetails extends Component {
           </Tab>
           <Tab title="Series">
             <Card>
-              <Collection>
-                {this.props.serieList &&
-                  this.props.serieList.series.map((item, index) =>
-                    this.renderItem(item, index)
-                  )}
-              </Collection>
+              {this.props.serieList &&
+              this.props.serieList.series.length === 0 ? (
+                <p>
+                  <strong>Não há itens para mostrar</strong>
+                </p>
+              ) : (
+                <Collection>
+                  {this.props.serieList &&
+                    this.props.serieList.series.map((item, index) =>
+                      this.renderItem(item, index)
+                    )}
+                </Collection>
+              )}
             </Card>
           </Tab>
           <Tab title="Events">
             <Card>
-              <Collection>
-                {this.props.eventList &&
-                  this.props.eventList.events.map((item, index) =>
-                    this.renderItem(item, index)
-                  )}
-              </Collection>
+              {this.props.eventList &&
+              this.props.eventList.events.length === 0 ? (
+                <p>
+                  <strong>Não há itens para mostrar</strong>
+                </p>
+              ) : (
+                <Collection>
+                  {this.props.eventList &&
+                    this.props.eventList.events.map((item, index) =>
+                      this.renderItem(item, index)
+                    )}
+                </Collection>
+              )}
             </Card>
           </Tab>
           <Tab title="Stories">
             <Card>
-              <Collection>
-                {this.props.storyList &&
-                  this.props.storyList.stories.map((item, index) =>
-                    this.renderItem(item, index)
-                  )}
-              </Collection>
+              {this.props.storyList &&
+              this.props.storyList.stories.length === 0 ? (
+                <p>
+                  <strong>Não há itens para mostrar</strong>
+                </p>
+              ) : (
+                <Collection>
+                  {this.props.storyList &&
+                    this.props.storyList.stories.map((item, index) =>
+                      this.renderItem(item, index)
+                    )}
+                </Collection>
+              )}
+            </Card>
+          </Tab>
+          <Tab title="Comics">
+            <Card>
+              {this.props.comicList &&
+              this.props.comicList.comics.length === 0 ? (
+                <p>
+                  <strong>Não há itens para mostrar</strong>
+                </p>
+              ) : (
+                <Collection>
+                  {this.props.comicList &&
+                    this.props.comicList.comics.map((item, index) =>
+                      this.renderItem(item, index)
+                    )}
+                </Collection>
+              )}
             </Card>
           </Tab>
         </Tabs>
@@ -95,7 +135,8 @@ const mapStateToProps = state => {
     character: state.characterStore.editCharacter.character,
     serieList: state.characterStore.serieList,
     eventList: state.characterStore.eventList,
-    storyList: state.characterStore.storyList
+    storyList: state.characterStore.storyList,
+    comicList: state.characterStore.comicList
   };
 };
 
@@ -104,7 +145,8 @@ const mapDispathToProps = dispatch => {
     fetchCharacter: id => dispatch(fetchCharacter(id)),
     fetchSeries: characterId => dispatch(fetchSeries(characterId)),
     fetchEvents: characterId => dispatch(fetchEvents(characterId)),
-    fetchStories: characterId => dispatch(fetchStories(characterId))
+    fetchStories: characterId => dispatch(fetchStories(characterId)),
+    fetchComics: characterId => dispatch(fetchComics(characterId))
   };
 };
 

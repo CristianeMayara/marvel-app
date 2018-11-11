@@ -51,6 +51,11 @@ const INITIAL_STATE = {
     error: false,
     loading: false,
     stories: []
+  },
+  comicList: {
+    error: false,
+    loading: false,
+    comics: []
   }
 };
 
@@ -177,6 +182,36 @@ export default function(state = INITIAL_STATE, action) {
           error: true,
           loading: false,
           events: []
+        }
+      };
+
+    case FETCH_COMICS:
+      return {
+        ...state,
+        comicList: {
+          error: false,
+          loading: true,
+          comics: []
+        }
+      };
+
+    case FETCH_COMICS_SUCCESS:
+      return {
+        ...state,
+        comicList: {
+          error: false,
+          loading: false,
+          comics: action.payload
+        }
+      };
+
+    case FETCH_COMICS_ERROR:
+      return {
+        ...state,
+        comicList: {
+          error: true,
+          loading: false,
+          comics: []
         }
       };
 
