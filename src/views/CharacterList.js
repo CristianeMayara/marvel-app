@@ -25,17 +25,21 @@ class CharacterList extends Component {
   }
 
   renderItem(item, index) {
+    let itemName = item.name;
+    let itemPicture = `${item.thumbnail.path}.${item.thumbnail.extension}`;
+
+    if (item.settings) {
+      let { name, picture } = item.settings;
+
+      if (name) itemName = item.settings.name;
+      if (picture) itemPicture = item.settings.picture;
+    }
+
     return (
       <Col m={4} s={12} key={index}>
         <Card
           className="large"
-          header={
-            <CardTitle
-              image={`${item.thumbnail.path}.${item.thumbnail.extension}`}
-            >
-              {item.name}
-            </CardTitle>
-          }
+          header={<CardTitle image={itemPicture}>{itemName}</CardTitle>}
           actions={[
             <Link key={`${index}-link1`} to={`/character/${item.id}`}>
               Edit

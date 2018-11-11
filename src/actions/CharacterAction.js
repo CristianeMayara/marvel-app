@@ -27,10 +27,25 @@ export function fetchCharacters(page) {
 
     try {
       let res = await fetchCharactersApi(page);
+      let characters = res.data.data.results;
+      let newCharacters = [];
+
+      for (let i = 0; i < characters.length; i++) {
+        let character = characters[i];
+        let settings = localStorage.getItem("character-" + character.id);
+
+        character.settings = settings
+          ? JSON.parse(settings)
+          : {
+              name: "",
+              picture: ""
+            };
+        newCharacters.push(character);
+      }
 
       dispatch({
         type: FETCH_CHARACTERS_SUCCESS,
-        payload: res.data.data.results
+        payload: newCharacters
       });
     } catch (err) {
       dispatch({ type: FETCH_CHARACTERS_ERROR });
