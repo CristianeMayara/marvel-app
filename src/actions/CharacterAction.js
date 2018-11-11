@@ -21,12 +21,12 @@ import {
   searchCharactersApi
 } from "../api/CharactersApi";
 
-export function fetchCharacters() {
+export function fetchCharacters(page) {
   return async dispatch => {
-    dispatch({ type: FETCH_CHARACTERS });
+    if (page === 0) dispatch({ type: FETCH_CHARACTERS });
 
     try {
-      let res = await fetchCharactersApi();
+      let res = await fetchCharactersApi(page);
 
       dispatch({
         type: FETCH_CHARACTERS_SUCCESS,

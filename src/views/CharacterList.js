@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
+import InfiniteScroll from "react-infinite-scroll-component";
 import { Col, Row, Card, CardTitle, Input } from "react-materialize";
 import { fetchCharacters, searchCharacters } from "../actions/CharacterAction";
 
@@ -12,7 +13,7 @@ class CharacterList extends Component {
   }
 
   componentDidMount() {
-    this.props.fetchCharacters();
+    this.props.fetchCharacters(0);
   }
 
   handleChangeInput(event) {
@@ -20,7 +21,7 @@ class CharacterList extends Component {
     const { value } = target;
 
     if (value) this.props.searchCharacters(value);
-    else this.props.fetchCharacters();
+    else this.props.fetchCharacters(0);
   }
 
   renderItem(item, index) {
@@ -36,8 +37,12 @@ class CharacterList extends Component {
             </CardTitle>
           }
           actions={[
-            <Link to={`/character/${item.id}`}>Edit</Link>,
-            <Link to={`/details/${item.id}`}>See details</Link>
+            <Link key={`${index}-link1`} to={`/character/${item.id}`}>
+              Edit
+            </Link>,
+            <Link key={`${index}-link2`} to={`/details/${item.id}`}>
+              See details
+            </Link>
           ]}
         >
           I am a very simple card. I am good at containing small bits of
@@ -48,6 +53,12 @@ class CharacterList extends Component {
     );
   }
 
+  fetchNextPage = () => {
+    if (this.props.page > 0) {
+      this.props.fetchCharacters(this.props.page);
+    }
+  };
+
   render() {
     return (
       <Row>
@@ -57,13 +68,23 @@ class CharacterList extends Component {
             s={12}
             name="name"
             type="text"
-            placeholder="Search for a character"
             onChange={this.handleChangeInput}
+            placeholder="Search for a character"
           />
+          {/* <InfiniteScroll
+            loader={<h4>Loading...</h4>}
+            next={this.fetchNextPage}
+            hasMore={true}
+            dataLength={
+              this.props.characterList.characters &&
+              this.props.characterList.characters.length
+            }
+          > */}
           {this.props.characterList.characters &&
-            this.props.characterList.characters.map((item, index) =>
-              this.renderItem(item, index)
-            )}
+            this.props.characterList.characters.map((item, index) => {
+              return this.renderItem(item, index);
+            })}
+          {/* </InfiniteScroll> */}
         </div>
       </Row>
     );
@@ -72,13 +93,14 @@ class CharacterList extends Component {
 
 const mapStateToProps = state => {
   return {
+    page: state.characterStore.page,
     characterList: state.characterStore.characterList
   };
 };
 
 const mapDispathToProps = dispatch => {
   return {
-    fetchCharacters: () => dispatch(fetchCharacters()),
+    fetchCharacters: page => dispatch(fetchCharacters(page)),
     searchCharacters: name => dispatch(searchCharacters(name))
   };
 };

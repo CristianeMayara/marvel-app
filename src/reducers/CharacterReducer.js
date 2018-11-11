@@ -17,6 +17,7 @@ import {
 } from "../actions/actionTypes";
 
 const INITIAL_STATE = {
+  page: 0,
   characterList: {
     error: false,
     loading: false,
@@ -37,17 +38,21 @@ export default function(state = INITIAL_STATE, action) {
         characterList: {
           error: false,
           loading: true,
-          characters: []
+          characters: state.characterList.characters
         }
       };
 
     case FETCH_CHARACTERS_SUCCESS:
+      let characters = state.characterList.characters;
+      characters = characters.concat(action.payload);
+
       return {
         ...state,
+        page: state.page + 1,
         characterList: {
+          characters,
           error: false,
-          loading: false,
-          characters: action.payload
+          loading: false
         }
       };
 
@@ -134,6 +139,7 @@ export default function(state = INITIAL_STATE, action) {
     case SEARCH_CHARACTERS_SUCCESS:
       return {
         ...state,
+        // page: state.page + 1,
         characterList: {
           error: false,
           loading: false,
