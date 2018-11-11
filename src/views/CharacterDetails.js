@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
+import { Collection, CollectionItem } from "react-materialize";
 import { fetchSeries } from "../actions/CharacterAction";
 
 class CharacterDetails extends Component {
@@ -11,19 +12,23 @@ class CharacterDetails extends Component {
     this.props.fetchSeries(this.props.match.params.id);
   }
 
+  renderItem(item, index) {
+    return (
+      <CollectionItem key={index} href={item.resourceURI}>
+        {item.name}
+      </CollectionItem>
+    );
+  }
+
   render() {
     return (
-      <div>
-        <h1>Details with Serie List</h1>
+      <Collection>
         {this.props.serieList &&
           this.props.serieList.series.available &&
-          this.props.serieList.series.items.map((serie, index) => (
-            <div key={index}>
-              <p>Title: {serie.name}</p>
-              <p>URL: {serie.resourceURI}</p>
-            </div>
-          ))}
-      </div>
+          this.props.serieList.series.items.map((item, index) =>
+            this.renderItem(item, index)
+          )}
+      </Collection>
     );
   }
 }
