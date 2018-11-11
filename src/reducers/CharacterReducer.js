@@ -151,6 +151,36 @@ export default function(state = INITIAL_STATE, action) {
         }
       };
 
+    case EDIT_CHARACTER:
+      return {
+        ...state,
+        editCharacter: {
+          error: false,
+          loading: true,
+          character: {}
+        }
+      };
+
+    case EDIT_CHARACTER_SUCCESS:
+      return {
+        ...state,
+        editCharacter: {
+          error: false,
+          loading: false,
+          character: action.payload
+        }
+      };
+
+    case EDIT_CHARACTER_ERROR:
+      return {
+        ...state,
+        editCharacter: {
+          error: true,
+          loading: false,
+          characters: {}
+        }
+      };
+
     default:
       return state;
   }

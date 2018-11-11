@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { Row, Card, Input, Button, MediaBox } from "react-materialize";
-import { fetchCharacter } from "../actions/CharacterAction";
+import { Row, Input, Button, MediaBox } from "react-materialize";
+import { editCharacter, fetchCharacter } from "../actions/CharacterAction";
 
 class CharacterEdit extends Component {
   constructor(props) {
@@ -9,6 +9,7 @@ class CharacterEdit extends Component {
 
     this.state = {
       character: {},
+      name: "",
       imagePreviewUrl: ""
     };
 
@@ -19,12 +20,28 @@ class CharacterEdit extends Component {
   async componentWillMount() {
     await this.props.fetchCharacter(this.props.match.params.id);
 
+    let statePicture = "";
+    let stateName = "";
+
+    if (this.props.editCharacter.character) {
+      let { name, thumbnail } = this.props.editCharacter.character;
+
+      stateName = name;
+      statePicture = `${thumbnail.path}.${thumbnail.extension}`;
+
+      if (this.props.editCharacter.character.settings) {
+        let { name, picture } = this.props.editCharacter.character.settings;
+
+        if (picture) statePicture = picture;
+        if (name) stateName = name;
+      }
+    }
+
     this.setState({
       ...this.state,
       character: this.props.editCharacter.character,
-      imagePreviewUrl: `${this.props.editCharacter.character.thumbnail.path}.${
-        this.props.editCharacter.character.thumbnail.extension
-      }`
+      name: stateName,
+      imagePreviewUrl: statePicture
     });
   }
 
@@ -32,47 +49,55 @@ class CharacterEdit extends Component {
     const { target } = event;
     const { name, value } = target;
 
-    let { character } = this.state;
-    character[name] = value;
+    this.state.character.settings[name] = value;
 
-    return this.setState({ ...this.state, character });
+    return this.setState({ ...this.state, character: this.state.character });
   }
 
   handleFileInput(event) {
     let reader = new FileReader();
     let file = event.target.files[0];
+    let name = event.target.name;
 
     reader.onloadend = () => {
-      this.setState({ imagePreviewUrl: reader.result });
+      this.state.character.settings[name] = reader.result;
+
+      this.setState({
+        ...this.state,
+        character: this.state.character,
+        imagePreviewUrl: reader.result
+      });
     };
 
-    reader.readAsDataURL(file);
+    if (file) reader.readAsDataURL(file);
+  }
+
+  saveCharacter(character, settings) {
+    this.props.handleEditCharacter(character, settings);
+  }
+
+  renderPicture() {
+    let { imagePreviewUrl } = this.state;
+    if (imagePreviewUrl) {
+      return (
+        <MediaBox width="350" src={imagePreviewUrl} caption={this.state.name} />
+      );
+    }
   }
 
   render() {
-    let { imagePreviewUrl } = this.state;
-    let $imagePreview = null;
-    if (imagePreviewUrl) {
-      $imagePreview = (
-        <MediaBox
-          width="350"
-          src={imagePreviewUrl}
-          caption={this.state.character.name}
-        />
-      );
-    }
-
     return (
       <Row style={{}}>
         <h1>Setting Character</h1>
-        {$imagePreview}
+        {this.renderPicture()}
+
         <Input
           s={12}
           name="name"
           type="text"
           label="Name"
           onChange={this.handleChangeInput}
-          placeholder={this.state.character.name || ""}
+          placeholder={this.state.name || ""}
         />
         <Input
           s={12}
@@ -85,7 +110,12 @@ class CharacterEdit extends Component {
         <Button
           className="red right"
           sytle={{ marginRight: 10 }}
-          onClick={() => {}}
+          onClick={() => {
+            this.saveCharacter(
+              this.state.character,
+              this.state.character.settings
+            );
+          }}
         >
           Save
         </Button>
@@ -102,8 +132,9 @@ const mapStateToProps = state => {
 
 const mapDispathToProps = dispatch => {
   return {
-    fetchCharacter: id => dispatch(fetchCharacter(id))
-    // handleEditCharacter: character => dispatch(editCharacter(character)),
+    fetchCharacter: id => dispatch(fetchCharacter(id)),
+    handleEditCharacter: (character, settings) =>
+      dispatch(editCharacter(character, settings))
   };
 };
 
