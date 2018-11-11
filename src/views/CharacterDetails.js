@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { Collection, CollectionItem } from "react-materialize";
 import { fetchSeries } from "../actions/CharacterAction";
+import BaseView from "../components/BaseView";
 
 class CharacterDetails extends Component {
   constructor(props) {
@@ -22,13 +23,15 @@ class CharacterDetails extends Component {
 
   render() {
     return (
-      <Collection>
-        {this.props.serieList &&
-          this.props.serieList.series.available &&
-          this.props.serieList.series.items.map((item, index) =>
-            this.renderItem(item, index)
-          )}
-      </Collection>
+      <BaseView>
+        <Collection>
+          {this.props.serieList &&
+            this.props.serieList.series.available &&
+            this.props.serieList.series.items.map((item, index) =>
+              this.renderItem(item, index)
+            )}
+        </Collection>
+      </BaseView>
     );
   }
 }

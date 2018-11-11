@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import InfiniteScroll from "react-infinite-scroll-component";
 import { Col, Row, Card, CardTitle, Input } from "react-materialize";
 import { fetchCharacters, searchCharacters } from "../actions/CharacterAction";
+import BaseView from "../components/BaseView";
 
 class CharacterList extends Component {
   constructor(props) {
@@ -65,7 +66,7 @@ class CharacterList extends Component {
 
   render() {
     return (
-      <Row>
+      <BaseView>
         <div>
           <h1>Character List</h1>
           <Input
@@ -75,22 +76,24 @@ class CharacterList extends Component {
             onChange={this.handleChangeInput}
             placeholder="Search for a character"
           />
-          {/* <InfiniteScroll
-            loader={<h4>Loading...</h4>}
-            next={this.fetchNextPage}
-            hasMore={true}
-            dataLength={
-              this.props.characterList.characters &&
-              this.props.characterList.characters.length
-            }
-          > */}
-          {this.props.characterList.characters &&
-            this.props.characterList.characters.map((item, index) => {
-              return this.renderItem(item, index);
-            })}
-          {/* </InfiniteScroll> */}
+          <Row>
+            <InfiniteScroll
+              loader={<h4>Loading...</h4>}
+              next={this.fetchNextPage}
+              hasMore={true}
+              dataLength={
+                this.props.characterList.characters &&
+                this.props.characterList.characters.length
+              }
+            >
+              {this.props.characterList.characters &&
+                this.props.characterList.characters.map((item, index) => {
+                  return this.renderItem(item, index);
+                })}
+            </InfiniteScroll>
+          </Row>
         </div>
-      </Row>
+      </BaseView>
     );
   }
 }

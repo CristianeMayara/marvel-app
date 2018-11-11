@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { Row, Input, Button, MediaBox } from "react-materialize";
 import { editCharacter, fetchCharacter } from "../actions/CharacterAction";
+import BaseView from "../components/BaseView";
 
 class CharacterEdit extends Component {
   constructor(props) {
@@ -87,39 +88,41 @@ class CharacterEdit extends Component {
 
   render() {
     return (
-      <Row style={{}}>
-        <h1>Setting Character</h1>
-        {this.renderPicture()}
+      <BaseView>
+        <Row style={{}}>
+          <h1>Setting Character</h1>
+          {this.renderPicture()}
 
-        <Input
-          s={12}
-          name="name"
-          type="text"
-          label="Name"
-          onChange={this.handleChangeInput}
-          placeholder={this.state.name || ""}
-        />
-        <Input
-          s={12}
-          type="file"
-          name="picture"
-          label="Change picture"
-          placeholder="Select a file"
-          onChange={this.handleFileInput}
-        />
-        <Button
-          className="red right"
-          sytle={{ marginRight: 10 }}
-          onClick={() => {
-            this.saveCharacter(
-              this.state.character,
-              this.state.character.settings
-            );
-          }}
-        >
-          Save
-        </Button>
-      </Row>
+          <Input
+            s={12}
+            name="name"
+            type="text"
+            label="Name"
+            onChange={this.handleChangeInput}
+            placeholder={this.state.name || ""}
+          />
+          <Input
+            s={12}
+            type="file"
+            name="picture"
+            label="Change picture"
+            placeholder="Select a file"
+            onChange={this.handleFileInput}
+          />
+          <Button
+            className="red right"
+            sytle={{ marginRight: 10 }}
+            onClick={() => {
+              this.saveCharacter(
+                this.state.character,
+                this.state.character.settings
+              );
+            }}
+          >
+            Save
+          </Button>
+        </Row>
+      </BaseView>
     );
   }
 }
