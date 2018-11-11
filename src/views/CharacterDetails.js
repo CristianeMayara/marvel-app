@@ -1,7 +1,11 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { Tab, Tabs, Card, Collection, CollectionItem } from "react-materialize";
-import { fetchSeries, fetchCharacter } from "../actions/CharacterAction";
+import {
+  fetchEvents,
+  fetchSeries,
+  fetchCharacter
+} from "../actions/CharacterAction";
 import BaseView from "../components/BaseView";
 
 class CharacterDetails extends Component {
@@ -12,13 +16,14 @@ class CharacterDetails extends Component {
   componentDidMount() {
     this.props.fetchCharacter(this.props.match.params.id);
     this.props.fetchSeries(this.props.match.params.id);
+    this.props.fetchEvents(this.props.match.params.id);
   }
 
   renderItem(item, index) {
     return (
       <Card key={index}>
         <CollectionItem key={index} href={item.resourceURI}>
-          {item.name}
+          {item.title}
         </CollectionItem>
       </Card>
     );
@@ -28,7 +33,6 @@ class CharacterDetails extends Component {
   renderDetails() {}
 
   render() {
-    console.log(this.props.character);
     return (
       <BaseView>
         <Tabs className="tab-demo z-depth-1">
@@ -52,8 +56,17 @@ class CharacterDetails extends Component {
             <Card>
               <Collection>
                 {this.props.serieList &&
-                  this.props.serieList.series.available &&
-                  this.props.serieList.series.items.map((item, index) =>
+                  this.props.serieList.series.map((item, index) =>
+                    this.renderItem(item, index)
+                  )}
+              </Collection>
+            </Card>
+          </Tab>
+          <Tab title="Events">
+            <Card>
+              <Collection>
+                {this.props.eventList &&
+                  this.props.eventList.events.map((item, index) =>
                     this.renderItem(item, index)
                   )}
               </Collection>
@@ -68,14 +81,16 @@ class CharacterDetails extends Component {
 const mapStateToProps = state => {
   return {
     character: state.characterStore.editCharacter.character,
-    serieList: state.characterStore.serieList
+    serieList: state.characterStore.serieList,
+    eventList: state.characterStore.eventList
   };
 };
 
 const mapDispathToProps = dispatch => {
   return {
     fetchCharacter: id => dispatch(fetchCharacter(id)),
-    fetchSeries: characterId => dispatch(fetchSeries(characterId))
+    fetchSeries: characterId => dispatch(fetchSeries(characterId)),
+    fetchEvents: characterId => dispatch(fetchEvents(characterId))
   };
 };
 

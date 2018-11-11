@@ -8,6 +8,9 @@ import {
   FETCH_SERIES,
   FETCH_SERIES_ERROR,
   FETCH_SERIES_SUCCESS,
+  FETCH_EVENTS,
+  FETCH_EVENTS_ERROR,
+  FETCH_EVENTS_SUCCESS,
   SEARCH_CHARACTERS,
   SEARCH_CHARACTERS_ERROR,
   SEARCH_CHARACTERS_SUCCESS,
@@ -16,6 +19,8 @@ import {
   EDIT_CHARACTER_SUCCESS
 } from "../actions/actionTypes";
 import {
+  fetchEventsApi,
+  fetchSeriesApi,
   fetchCharacterApi,
   fetchCharactersApi,
   searchCharactersApi
@@ -84,14 +89,31 @@ export function fetchSeries(id) {
     dispatch({ type: FETCH_SERIES });
 
     try {
-      let res = await fetchCharacterApi(id);
+      let res = await fetchSeriesApi(id);
 
       dispatch({
         type: FETCH_SERIES_SUCCESS,
-        payload: res.data.data.results[0].series
+        payload: res.data.data.results
       });
     } catch (err) {
       dispatch({ type: FETCH_SERIES_ERROR });
+    }
+  };
+}
+
+export function fetchEvents(id) {
+  return async dispatch => {
+    dispatch({ type: FETCH_EVENTS });
+
+    try {
+      let res = await fetchEventsApi(id);
+
+      dispatch({
+        type: FETCH_EVENTS_SUCCESS,
+        payload: res.data.data.results
+      });
+    } catch (err) {
+      dispatch({ type: FETCH_EVENTS_ERROR });
     }
   };
 }

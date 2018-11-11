@@ -6,6 +6,9 @@ export const MD5_HASH = "4278f84468205addf2f28cabe5e038a8";
 
 export const CHARACTERS_PATH = "/characters";
 export const SERIES_PATH = "/series";
+export const EVENTS_PATH = "/events";
+export const STORIES_PATH = "/stories";
+export const COMICS_PATH = "/comics";
 
 export const fetchCharactersApi = async page => {
   const url = `${API_URL}${CHARACTERS_PATH}?apikey=${PUBLIC_KEY}&hash=${MD5_HASH}&ts=1&limit=100&offset=${page *
@@ -22,6 +25,24 @@ export const fetchCharacterApi = async id => {
 
 export const fetchSeriesApi = async id => {
   const url = `${API_URL}${CHARACTERS_PATH}/${id}${SERIES_PATH}?apikey=${PUBLIC_KEY}&hash=${MD5_HASH}&ts=1&limit=100`;
+
+  return await axios.get(url);
+};
+
+export const fetchEventsApi = async id => {
+  const url = `${API_URL}${CHARACTERS_PATH}/${id}${EVENTS_PATH}?apikey=${PUBLIC_KEY}&hash=${MD5_HASH}&ts=1&limit=100`;
+
+  return await axios.get(url);
+};
+
+export const fetchStoriesApi = async id => {
+  const url = `${API_URL}${CHARACTERS_PATH}/${id}${STORIES_PATH}?apikey=${PUBLIC_KEY}&hash=${MD5_HASH}&ts=1&limit=100`;
+
+  return await axios.get(url);
+};
+
+export const fetchComicsApi = async id => {
+  const url = `${API_URL}${CHARACTERS_PATH}/${id}${COMICS_PATH}?apikey=${PUBLIC_KEY}&hash=${MD5_HASH}&ts=1&limit=100`;
 
   return await axios.get(url);
 };

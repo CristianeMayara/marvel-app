@@ -11,6 +11,15 @@ import {
   FETCH_SERIES,
   FETCH_SERIES_SUCCESS,
   FETCH_SERIES_ERROR,
+  FETCH_STORIES,
+  FETCH_STORIES_SUCCESS,
+  FETCH_STORIES_ERROR,
+  FETCH_EVENTS,
+  FETCH_EVENTS_SUCCESS,
+  FETCH_EVENTS_ERROR,
+  FETCH_COMICS,
+  FETCH_COMICS_SUCCESS,
+  FETCH_COMICS_ERROR,
   SEARCH_CHARACTERS,
   SEARCH_CHARACTERS_SUCCESS,
   SEARCH_CHARACTERS_ERROR
@@ -27,7 +36,17 @@ const INITIAL_STATE = {
     error: false,
     loading: false,
     character: {}
-  }
+  },
+  eventList: {
+    error: false,
+    loading: false,
+    events: []
+  },
+  serieList: {
+    error: false,
+    loading: false,
+    series: []
+  },
 };
 
 export default function(state = INITIAL_STATE, action) {
@@ -123,6 +142,36 @@ export default function(state = INITIAL_STATE, action) {
           error: true,
           loading: false,
           series: []
+        }
+      };
+
+    case FETCH_EVENTS:
+      return {
+        ...state,
+        eventList: {
+          error: false,
+          loading: true,
+          events: []
+        }
+      };
+
+    case FETCH_EVENTS_SUCCESS:
+      return {
+        ...state,
+        eventList: {
+          error: false,
+          loading: false,
+          events: action.payload
+        }
+      };
+
+    case FETCH_EVENTS_ERROR:
+      return {
+        ...state,
+        eventList: {
+          error: true,
+          loading: false,
+          events: []
         }
       };
 
