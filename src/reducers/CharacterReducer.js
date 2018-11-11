@@ -47,6 +47,11 @@ const INITIAL_STATE = {
     loading: false,
     series: []
   },
+  storyList: {
+    error: false,
+    loading: false,
+    stories: []
+  }
 };
 
 export default function(state = INITIAL_STATE, action) {
@@ -172,6 +177,36 @@ export default function(state = INITIAL_STATE, action) {
           error: true,
           loading: false,
           events: []
+        }
+      };
+
+    case FETCH_STORIES:
+      return {
+        ...state,
+        storyList: {
+          error: false,
+          loading: true,
+          stories: []
+        }
+      };
+
+    case FETCH_STORIES_SUCCESS:
+      return {
+        ...state,
+        storyList: {
+          error: false,
+          loading: false,
+          stories: action.payload
+        }
+      };
+
+    case FETCH_STORIES_ERROR:
+      return {
+        ...state,
+        storyList: {
+          error: true,
+          loading: false,
+          stories: []
         }
       };
 

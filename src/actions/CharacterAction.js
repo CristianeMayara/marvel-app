@@ -11,6 +11,9 @@ import {
   FETCH_EVENTS,
   FETCH_EVENTS_ERROR,
   FETCH_EVENTS_SUCCESS,
+  FETCH_STORIES,
+  FETCH_STORIES_ERROR,
+  FETCH_STORIES_SUCCESS,
   SEARCH_CHARACTERS,
   SEARCH_CHARACTERS_ERROR,
   SEARCH_CHARACTERS_SUCCESS,
@@ -21,6 +24,7 @@ import {
 import {
   fetchEventsApi,
   fetchSeriesApi,
+  fetchStoriesApi,
   fetchCharacterApi,
   fetchCharactersApi,
   searchCharactersApi
@@ -114,6 +118,23 @@ export function fetchEvents(id) {
       });
     } catch (err) {
       dispatch({ type: FETCH_EVENTS_ERROR });
+    }
+  };
+}
+
+export function fetchStories(id) {
+  return async dispatch => {
+    dispatch({ type: FETCH_STORIES });
+
+    try {
+      let res = await fetchStoriesApi(id);
+
+      dispatch({
+        type: FETCH_STORIES_SUCCESS,
+        payload: res.data.data.results
+      });
+    } catch (err) {
+      dispatch({ type: FETCH_STORIES_ERROR });
     }
   };
 }

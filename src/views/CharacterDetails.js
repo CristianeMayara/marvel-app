@@ -4,6 +4,7 @@ import { Tab, Tabs, Card, Collection, CollectionItem } from "react-materialize";
 import {
   fetchEvents,
   fetchSeries,
+  fetchStories,
   fetchCharacter
 } from "../actions/CharacterAction";
 import BaseView from "../components/BaseView";
@@ -17,6 +18,7 @@ class CharacterDetails extends Component {
     this.props.fetchCharacter(this.props.match.params.id);
     this.props.fetchSeries(this.props.match.params.id);
     this.props.fetchEvents(this.props.match.params.id);
+    this.props.fetchStories(this.props.match.params.id);
   }
 
   renderItem(item, index) {
@@ -72,6 +74,16 @@ class CharacterDetails extends Component {
               </Collection>
             </Card>
           </Tab>
+          <Tab title="Stories">
+            <Card>
+              <Collection>
+                {this.props.storyList &&
+                  this.props.storyList.stories.map((item, index) =>
+                    this.renderItem(item, index)
+                  )}
+              </Collection>
+            </Card>
+          </Tab>
         </Tabs>
       </BaseView>
     );
@@ -82,7 +94,8 @@ const mapStateToProps = state => {
   return {
     character: state.characterStore.editCharacter.character,
     serieList: state.characterStore.serieList,
-    eventList: state.characterStore.eventList
+    eventList: state.characterStore.eventList,
+    storyList: state.characterStore.storyList
   };
 };
 
@@ -90,7 +103,8 @@ const mapDispathToProps = dispatch => {
   return {
     fetchCharacter: id => dispatch(fetchCharacter(id)),
     fetchSeries: characterId => dispatch(fetchSeries(characterId)),
-    fetchEvents: characterId => dispatch(fetchEvents(characterId))
+    fetchEvents: characterId => dispatch(fetchEvents(characterId)),
+    fetchStories: characterId => dispatch(fetchStories(characterId))
   };
 };
 
