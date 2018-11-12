@@ -1,8 +1,8 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { Col, Row, Card, Input, Button, MediaBox } from "react-materialize";
-import { editCharacter, fetchCharacter } from "../actions/CharacterAction";
-import BaseView from "../components/BaseView";
+import { editCharacter, fetchCharacter } from "../../actions/CharacterAction";
+import BaseView from "../../components/BaseView/BaseView";
 
 class CharacterEdit extends Component {
   constructor(props) {

@@ -3,8 +3,8 @@ import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import InfiniteScroll from "react-infinite-scroll-component";
 import { Col, Row, Card, CardTitle, Input } from "react-materialize";
-import { fetchCharacters, searchCharacters } from "../actions/CharacterAction";
-import BaseView from "../components/BaseView";
+import { fetchCharacters, searchCharacters } from "../../actions/CharacterAction";
+import BaseView from "../../components/BaseView/BaseView";
 
 class CharacterList extends Component {
   constructor(props) {

@@ -17,8 +17,8 @@ import {
   fetchSeries,
   fetchStories,
   fetchCharacter
-} from "../actions/CharacterAction";
-import BaseView from "../components/BaseView";
+} from "../../actions/CharacterAction";
+import BaseView from "../../components/BaseView/BaseView";
 
 class CharacterDetails extends Component {
   constructor(props) {

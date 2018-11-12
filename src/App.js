@@ -1,8 +1,8 @@
 import React, { Component } from "react";
 import { Route, Switch, Redirect } from "react-router-dom";
-import CharacterEdit from "./views/CharacterEdit";
-import CharacterList from "./views/CharacterList";
-import CharacterDetails from "./views/CharacterDetails";
+import CharacterEdit from "./views/CharacterEdit/CharacterEdit";
+import CharacterList from "./views/CharacterList/CharacterList";
+import CharacterDetails from "./views/CharacterDetails/CharacterDetails";
 
 class App extends Component {
   render() {
