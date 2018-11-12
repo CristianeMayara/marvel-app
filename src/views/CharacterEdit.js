@@ -101,7 +101,11 @@ class CharacterEdit extends Component {
     let { imagePreviewUrl } = this.state;
     if (imagePreviewUrl) {
       return (
-        <MediaBox width="350" src={imagePreviewUrl} caption={this.state.name} />
+        <MediaBox
+          width="100%"
+          src={imagePreviewUrl}
+          caption={this.state.name}
+        />
       );
     }
   }
