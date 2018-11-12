@@ -1,32 +1,13 @@
-.App {
-  text-align: center;
+.logo {
+  height: 25px;
+  margin-top: 10px;
+  margin-left: 10px;
 }
 
-.App-logo {
-  animation: App-logo-spin infinite 20s linear;
-  height: 40vmin;
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
-}
-
-.App-link {
-  color: #61dafb;
-}
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.background {
+  width: 100%;
+  height: 100%;
+  background: url("https://www.papeldeparedestar.com.br/media/catalog/product/cache/1/image/9df78eab33525d08d6e5fb8d27136e95/s/t/star_design_dy0269_1_1.jpg")
+    100% 100%;
+  overflow-y: scroll;
 }

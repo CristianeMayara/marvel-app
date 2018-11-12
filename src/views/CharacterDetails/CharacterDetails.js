@@ -18,6 +18,7 @@ import {
   fetchStories,
   fetchCharacter
 } from "../../actions/CharacterAction";
+import { withRouter } from "react-router-dom";
 import BaseView from "../../components/BaseView/BaseView";
 
 class CharacterDetails extends Component {
@@ -222,7 +223,9 @@ const mapDispathToProps = dispatch => {
   };
 };
 
-export default connect(
-  mapStateToProps,
-  mapDispathToProps
-)(CharacterDetails);
+export default withRouter(
+  connect(
+    mapStateToProps,
+    mapDispathToProps
+  )(CharacterDetails)
+);

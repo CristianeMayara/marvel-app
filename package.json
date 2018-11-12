@@ -4,8 +4,15 @@
   "private": true,
   "dependencies": {
     "axios": "^0.18.0",
+    "babel-jest": "^23.6.0",
+    "babel-plugin-transform-class-properties": "^6.24.1",
+    "babel-plugin-transform-decorators-legacy": "^1.3.5",
+    "babel-preset-env": "^1.7.0",
+    "babel-preset-react": "^6.24.1",
     "enzyme": "^3.7.0",
     "enzyme-adapter-react-16": "^1.7.0",
+    "identity-obj-proxy": "^3.0.0",
+    "jest-cli": "^23.6.0",
     "materialize-css": "^1.0.0",
     "react": "^16.6.1",
     "react-dom": "^16.6.1",
@@ -14,22 +21,39 @@
     "react-redux": "^5.1.0",
     "react-router-dom": "^4.4.0-beta.6",
     "react-scripts": "2.1.1",
+    "react-test-renderer": "^16.6.1",
     "redux": "^4.0.1",
     "redux-thunk": "^2.3.0"
   },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "test": "react-scripts test",
+    "test": "jest",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {
     "extends": "react-app"
+  },
+  "jest": {
+    "verbose": true,
+    "setupFiles": [
+      "<rootDir>/src/setupTests.js"
+    ],
+    "moduleNameMapper": {
+      "\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$": "./_mocks_/fileMock.js",
+      "\\.(css|less)$": "identity-obj-proxy"
+    }
   },
   "browserslist": [
     ">0.2%",
     "not dead",
     "not ie <= 11",
     "not op_mini all"
-  ]
+  ],
+  "devDependencies": {
+    "babel-core": "^6.26.3",
+    "jest": "^23.6.0",
+    "react-addons-test-utils": "^15.6.2",
+    "regenerator-runtime": "^0.12.1"
+  }
 }

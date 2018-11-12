@@ -1,13 +1,14 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { Link } from "react-router-dom";
+import { Link, withRouter } from "react-router-dom";
 import InfiniteScroll from "react-infinite-scroll-component";
-import { Col, Row, Card, CardTitle, Input } from "react-materialize";
+import { Col, Row, Icon, Card, CardTitle, Input } from "react-materialize";
 import {
   fetchCharacters,
   searchCharacters
 } from "../../actions/CharacterAction";
 import BaseView from "../../components/BaseView/BaseView";
+import "./style.css";
 
 class CharacterList extends Component {
   constructor(props) {
@@ -42,8 +43,9 @@ class CharacterList extends Component {
     return (
       <Col m={4} key={index}>
         <Card
+          className="medium"
           header={
-            <div className="card-image">
+            <div className="card-image picture">
               <img alt={itemName} src={itemPicture} />
             </div>
           }
@@ -73,13 +75,17 @@ class CharacterList extends Component {
       <BaseView>
         <div>
           <h1>Character List</h1>
-          <Input
-            s={12}
-            name="name"
-            type="text"
-            onChange={this.handleChangeInput}
-            placeholder="Search for a character"
-          />
+          <Card>
+            <Input
+              s={12}
+              name="name"
+              type="text"
+              onChange={this.handleChangeInput}
+              placeholder="Search for a character"
+            >
+              <Icon>search</Icon>
+            </Input>
+          </Card>
           <Row>
             <InfiniteScroll
               loader={<h4>Loading...</h4>}
@@ -116,7 +122,9 @@ const mapDispathToProps = dispatch => {
   };
 };
 
-export default connect(
-  mapStateToProps,
-  mapDispathToProps
-)(CharacterList);
+export default withRouter(
+  connect(
+    mapStateToProps,
+    mapDispathToProps
+  )(CharacterList)
+);

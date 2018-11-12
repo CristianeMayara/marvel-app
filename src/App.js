@@ -3,6 +3,7 @@ import { Route, Switch, Redirect } from "react-router-dom";
 import CharacterEdit from "./views/CharacterEdit/CharacterEdit";
 import CharacterList from "./views/CharacterList/CharacterList";
 import CharacterDetails from "./views/CharacterDetails/CharacterDetails";
+import "./App.css";
 
 class App extends Component {
   render() {

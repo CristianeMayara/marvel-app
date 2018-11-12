@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { Col, Row, Card, Input, Button, MediaBox } from "react-materialize";
+import { withRouter } from "react-router-dom";
 import { editCharacter, fetchCharacter } from "../../actions/CharacterAction";
 import BaseView from "../../components/BaseView/BaseView";
 
@@ -203,7 +204,9 @@ const mapDispathToProps = dispatch => {
   };
 };
 
-export default connect(
-  mapStateToProps,
-  mapDispathToProps
-)(CharacterEdit);
+export default withRouter(
+  connect(
+    mapStateToProps,
+    mapDispathToProps
+  )(CharacterEdit)
+);
