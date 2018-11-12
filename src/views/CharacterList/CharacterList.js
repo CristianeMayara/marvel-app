@@ -3,7 +3,10 @@ import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import InfiniteScroll from "react-infinite-scroll-component";
 import { Col, Row, Card, CardTitle, Input } from "react-materialize";
-import { fetchCharacters, searchCharacters } from "../../actions/CharacterAction";
+import {
+  fetchCharacters,
+  searchCharacters
+} from "../../actions/CharacterAction";
 import BaseView from "../../components/BaseView/BaseView";
 
 class CharacterList extends Component {
@@ -37,10 +40,13 @@ class CharacterList extends Component {
     }
 
     return (
-      <Col m={4} s={12} key={index}>
+      <Col m={4} key={index}>
         <Card
-          className="large"
-          header={<CardTitle image={itemPicture}>{itemName}</CardTitle>}
+          header={
+            <div className="card-image">
+              <img alt={itemName} src={itemPicture} />
+            </div>
+          }
           actions={[
             <Link key={`${index}-link1`} to={`/character/${item.id}`}>
               Edit
@@ -50,9 +56,7 @@ class CharacterList extends Component {
             </Link>
           ]}
         >
-          I am a very simple card. I am good at containing small bits of
-          information. I am convenient because I require little markup to use
-          effectively.
+          <h5>{itemName}</h5>
         </Card>
       </Col>
     );
