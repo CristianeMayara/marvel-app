@@ -51,7 +51,11 @@ export function fetchCharacters(page) {
           ? JSON.parse(settings)
           : {
               name: "",
-              picture: ""
+              picture: "",
+              abilities: "",
+              species: "",
+              appearance: "",
+              description: ""
             };
         newCharacters.push(character);
       }
@@ -79,7 +83,11 @@ export function fetchCharacter(id) {
         ? JSON.parse(settings)
         : {
             name: "",
-            picture: ""
+            picture: "",
+            description: "",
+            abilities: "",
+            species: "",
+            appearance: ""
           };
 
       dispatch({

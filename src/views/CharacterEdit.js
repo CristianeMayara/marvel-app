@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { Row, Input, Button, MediaBox } from "react-materialize";
+import { Col, Row, Card, Input, Button, MediaBox } from "react-materialize";
 import { editCharacter, fetchCharacter } from "../actions/CharacterAction";
 import BaseView from "../components/BaseView";
 
@@ -21,20 +21,36 @@ class CharacterEdit extends Component {
   async componentWillMount() {
     await this.props.fetchCharacter(this.props.match.params.id);
 
-    let statePicture = "";
     let stateName = "";
+    let statePicture = "";
+    let stateSpecies = "";
+    let stateAbilities = "";
+    let stateAppearance = "";
+    let stateDescription = "";
 
     if (this.props.editCharacter.character) {
-      let { name, thumbnail } = this.props.editCharacter.character;
+      let { name, thumbnail, description } = this.props.editCharacter.character;
 
       stateName = name;
+      stateDescription = description;
       statePicture = `${thumbnail.path}.${thumbnail.extension}`;
 
       if (this.props.editCharacter.character.settings) {
-        let { name, picture } = this.props.editCharacter.character.settings;
+        let {
+          name,
+          picture,
+          species,
+          abilities,
+          appearance,
+          description
+        } = this.props.editCharacter.character.settings;
 
-        if (picture) statePicture = picture;
         if (name) stateName = name;
+        if (picture) statePicture = picture;
+        if (species) stateSpecies = species;
+        if (abilities) stateAbilities = abilities;
+        if (appearance) stateAppearance = appearance;
+        if (description) stateDescription = description;
       }
     }
 
@@ -42,6 +58,10 @@ class CharacterEdit extends Component {
       ...this.state,
       character: this.props.editCharacter.character,
       name: stateName,
+      species: stateSpecies,
+      abilities: stateAbilities,
+      appearance: stateAppearance,
+      description: stateDescription,
       imagePreviewUrl: statePicture
     });
   }
@@ -89,39 +109,77 @@ class CharacterEdit extends Component {
   render() {
     return (
       <BaseView>
-        <Row style={{}}>
-          <h1>Setting Character</h1>
-          {this.renderPicture()}
+        <h1>Setting Character</h1>
+        <Card>
+          <Row>
+            <Col s={6} m={4}>
+              {this.renderPicture()}
+            </Col>
 
-          <Input
-            s={12}
-            name="name"
-            type="text"
-            label="Name"
-            onChange={this.handleChangeInput}
-            placeholder={this.state.name || ""}
-          />
-          <Input
-            s={12}
-            type="file"
-            name="picture"
-            label="Change picture"
-            placeholder="Select a file"
-            onChange={this.handleFileInput}
-          />
-          <Button
-            className="red right"
-            sytle={{ marginRight: 10 }}
-            onClick={() => {
-              this.saveCharacter(
-                this.state.character,
-                this.state.character.settings
-              );
-            }}
-          >
-            Save
-          </Button>
-        </Row>
+            <Col s={6} m={8}>
+              <Input
+                s={6}
+                name="name"
+                type="text"
+                label="Name"
+                onChange={this.handleChangeInput}
+                placeholder={this.state.name || ""}
+              />
+              <Input
+                s={6}
+                name="abilities"
+                type="text"
+                label="Abilities"
+                onChange={this.handleChangeInput}
+                placeholder={this.state.abilities || ""}
+              />
+              <Input
+                s={6}
+                name="species"
+                type="text"
+                label="Species"
+                onChange={this.handleChangeInput}
+                placeholder={this.state.species || ""}
+              />
+              <Input
+                s={6}
+                name="appearance"
+                type="text"
+                label="First appearance"
+                onChange={this.handleChangeInput}
+                placeholder={this.state.appearance || ""}
+              />
+              <Input
+                s={12}
+                name="description"
+                type="textarea"
+                label="Description"
+                onChange={this.handleChangeInput}
+                placeholder={this.state.description || ""}
+              />
+              <Input
+                s={12}
+                type="file"
+                name="picture"
+                label="Change picture"
+                placeholder="Select a file"
+                onChange={this.handleFileInput}
+              />
+              <Button
+                className="red right"
+                sytle={{ marginRight: 10 }}
+                onClick={() => {
+                  this.saveCharacter(
+                    this.state.character,
+                    this.state.character.settings
+                  );
+                }}
+              >
+                Save
+              </Button>
+            </Col>
+          </Row>
+        </Card>
       </BaseView>
     );
   }
