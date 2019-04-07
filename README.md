@@ -1,11 +1,15 @@
 # Marvel App
 
+<p align="center">
+  <img src="https://github.com/CristianeMayara/marvel-app/blob/master/docs/marvel-app-web.gif" height="500px" />
+</p>
+
 ## Technologies
 
-* ReactJS
-* Redux
-* MaterializeCSS
-* Jest and Enzyme
+- ReactJS
+- Redux
+- MaterializeCSS
+- Jest and Enzyme
 
 ## Available Scripts
 
