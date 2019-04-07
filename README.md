@@ -1,8 +1,10 @@
 # Marvel App
 
 <p align="center">
-  <img src="https://github.com/CristianeMayara/marvel-app/blob/master/docs/marvel-app-web.gif" height="500px" />
+  <img src="https://github.com/CristianeMayara/marvel-app/blob/master/docs/marvel-app-web.gif" />
 </p>
+
+Available in http://marvelapp.surge.sh/
 
 ## Technologies
 
